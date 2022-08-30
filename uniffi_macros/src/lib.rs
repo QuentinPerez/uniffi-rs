@@ -157,23 +157,24 @@ pub fn include_scaffolding(component_name: TokenStream) -> TokenStream {
 ///
 #[proc_macro]
 pub fn generate_and_include_scaffolding(udl_file: TokenStream) -> TokenStream {
-    let udl_file = syn::parse_macro_input!(udl_file as syn::LitStr);
-    let udl_file_string = udl_file.value();
-    let udl_file_path = Utf8Path::new(&udl_file_string);
-    if std::env::var("OUT_DIR").is_err() {
-        quote! {
-            compile_error!("This macro assumes the crate has a build.rs script, but $OUT_DIR is not present");
-        }
-    } else if uniffi_build::generate_scaffolding(udl_file_path).is_err() {
-        quote! {
-            compile_error!(concat!("Failed to generate scaffolding from UDL file at ", #udl_file));
-        }
-    } else {
-        // We know the filename is good because `generate_scaffolding` succeeded,
-        // so this `unwrap` will never fail.
-        let name = LitStr::new(udl_file_path.file_stem().unwrap(), udl_file.span());
-        quote! {
-            uniffi_macros::include_scaffolding!(#name);
-        }
-    }.into()
+    todo!()
+    // let udl_file = syn::parse_macro_input!(udl_file as syn::LitStr);
+    // let udl_file_string = udl_file.value();
+    // let udl_file_path = Utf8Path::new(&udl_file_string);
+    // if std::env::var("OUT_DIR").is_err() {
+    //     quote! {
+    //         compile_error!("This macro assumes the crate has a build.rs script, but $OUT_DIR is not present");
+    //     }
+    // } else if uniffi_build::generate_scaffolding(udl_file_path).is_err() {
+    //     quote! {
+    //         compile_error!(concat!("Failed to generate scaffolding from UDL file at ", #udl_file));
+    //     }
+    // } else {
+    //     // We know the filename is good because `generate_scaffolding` succeeded,
+    //     // so this `unwrap` will never fail.
+    //     let name = LitStr::new(udl_file_path.file_stem().unwrap(), udl_file.span());
+    //     quote! {
+    //         uniffi_macros::include_scaffolding!(#name);
+    //     }
+    // }.into()
 }

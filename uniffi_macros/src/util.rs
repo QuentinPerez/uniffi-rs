@@ -74,6 +74,7 @@ pub fn mod_path() -> syn::Result<Vec<String>> {
     Ok(syn::parse::<syn::LitStr>(expanded_module_path)?
         .value()
         .split("::")
+        .map(|value| value.to_owned())
         .collect())
 }
 

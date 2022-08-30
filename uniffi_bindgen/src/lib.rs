@@ -267,6 +267,7 @@ pub fn generate_component_scaffolding(
     config_file_override: Option<&Utf8Path>,
     out_dir_override: Option<&Utf8Path>,
     format_code: bool,
+    out_name: &Option<String>,
 ) -> Result<()> {
     let component = parse_udl(udl_file)?;
     let _config = get_config(
@@ -274,9 +275,12 @@ pub fn generate_component_scaffolding(
         guess_crate_root(udl_file)?,
         config_file_override,
     );
-    let file_stem = udl_file.file_stem().context("not a file")?;
-    let filename = format!("{file_stem}.uniffi.rs");
+    let name = out_name
+        .as_deref()
+        .unwrap_or(udl_file.file_stem().context("not a file")?);
+    let filename = format!("{}.uniffi.rs", name);
     let out_path = get_out_dir(udl_file, out_dir_override)?.join(filename);
+
     let mut f = File::create(&out_path)?;
     write!(f, "{}", RustScaffolding::new(&component)).context("Failed to write output file")?;
     if format_code {
@@ -294,6 +298,7 @@ pub fn generate_bindings(
     out_dir_override: Option<&Utf8Path>,
     library_file: Option<&Utf8Path>,
     try_format_code: bool,
+    out_name: Option<String>,
 ) -> Result<()> {
     let mut component = parse_udl(udl_file)?;
     if let Some(library_file) = library_file {
@@ -310,6 +315,7 @@ pub fn generate_bindings(
             &out_dir,
             language.try_into()?,
             try_format_code,
+            out_name.clone(),
         )?;
     }
 
@@ -337,9 +343,9 @@ pub fn guess_crate_root(udl_file: &Utf8Path) -> Result<&Utf8Path> {
         .context("UDL file has no parent folder!")?
         .parent()
         .context("UDL file has no grand-parent folder!")?;
-    if !path_guess.join("Cargo.toml").is_file() {
-        bail!("UDL file does not appear to be inside a crate")
-    }
+    // if !path_guess.join("Cargo.toml").is_file() {
+    //     bail!("UDL file does not appear to be inside a crate")
+    // }
     Ok(path_guess)
 }
 

@@ -12,8 +12,8 @@
 // uniffi_reexport_scaffolding!() for each one.
 
 #[doc(hidden)]
-pub fn uniffi_reexport_hack() {
-}
+#[allow(dead_code)]
+pub fn uniffi_reexport_hack() {}
 
 #[macro_export]
 macro_rules! uniffi_reexport_scaffolding {

@@ -58,6 +58,7 @@ fn generate_sources(
             Some(out_dir),
             Some(library_path),
             false,
+            None,
         )?;
     }
     Ok(())

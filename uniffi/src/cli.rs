@@ -44,6 +44,9 @@ enum Commands {
 
         /// Path to the UDL file.
         udl_file: Utf8PathBuf,
+
+        #[clap(long, short)]
+        out_name: Option<String>,
     },
 
     /// Generate Rust scaffolding code
@@ -62,6 +65,9 @@ enum Commands {
 
         /// Path to the UDL file.
         udl_file: Utf8PathBuf,
+
+        #[clap(long, short)]
+        out_name: Option<String>,
     },
 
     /// Print the JSON representation of the interface from a dynamic library
@@ -81,6 +87,7 @@ pub fn run_main() -> anyhow::Result<()> {
             config,
             lib_file,
             udl_file,
+            out_name,
         } => uniffi_bindgen::generate_bindings(
             udl_file,
             config.as_deref(),
@@ -88,17 +95,20 @@ pub fn run_main() -> anyhow::Result<()> {
             out_dir.as_deref(),
             lib_file.as_deref(),
             !no_format,
+            out_name.clone(),
         ),
         Commands::Scaffolding {
             out_dir,
             config,
             no_format,
             udl_file,
+            out_name,
         } => uniffi_bindgen::generate_component_scaffolding(
             udl_file,
             config.as_deref(),
             out_dir.as_deref(),
             !no_format,
+            out_name,
         ),
         Commands::PrintJson { path } => uniffi_bindgen::print_json(path),
     }?;

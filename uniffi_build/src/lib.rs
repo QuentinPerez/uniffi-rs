@@ -16,7 +16,10 @@ use std::env;
 ///
 /// Given an UDL file named `example.udl`, the generated scaffolding will be written
 /// into a file named `example.uniffi.rs` in the `$OUT_DIR` directory.
-pub fn generate_scaffolding(udl_file: impl AsRef<Utf8Path>) -> Result<()> {
+pub fn generate_scaffolding(
+    udl_file: impl AsRef<Utf8Path>,
+    out_name: &Option<String>,
+) -> Result<()> {
     let udl_file = udl_file.as_ref();
 
     println!("cargo:rerun-if-changed={udl_file}");
@@ -27,5 +30,11 @@ pub fn generate_scaffolding(udl_file: impl AsRef<Utf8Path>) -> Result<()> {
     // Calling the command line helps making sure that the generated swift/Kotlin/whatever
     // bindings were generated with the same version of uniffi as the Rust scaffolding code.
     let out_dir = env::var("OUT_DIR").context("$OUT_DIR missing?!")?;
-    uniffi_bindgen::generate_component_scaffolding(udl_file, None, Some(out_dir.as_ref()), false)
+    uniffi_bindgen::generate_component_scaffolding(
+        udl_file,
+        None,
+        Some(out_dir.as_ref()),
+        false,
+        out_name,
+    )
 }

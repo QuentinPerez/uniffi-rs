@@ -147,6 +147,7 @@ impl GeneratedSources {
                 Some(out_dir),
                 Some(library_path),
                 false,
+                None,
             )?;
         }
 
@@ -191,6 +192,7 @@ impl GeneratedSources {
             Some(out_dir),
             Some(library_path),
             false,
+            None,
         )
     }
 }

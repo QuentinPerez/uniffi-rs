@@ -9,9 +9,9 @@ use camino::Utf8Path;
 use fs_err::File;
 
 pub mod gen_ruby;
-mod test;
+// mod test;
 pub use gen_ruby::{Config, RubyWrapper};
-pub use test::run_test;
+// pub use test::run_test;
 
 use super::super::interface::ComponentInterface;
 
@@ -22,8 +22,14 @@ pub fn write_bindings(
     ci: &ComponentInterface,
     out_dir: &Utf8Path,
     try_format_code: bool,
+    out_name: Option<String>,
 ) -> Result<()> {
-    let rb_file = out_dir.join(format!("{}.rb", ci.namespace()));
+    let name = out_name
+        .as_deref()
+        .or_else(|| Some(ci.namespace()))
+        .unwrap();
+
+    let rb_file = out_dir.join(format!("{}.rb", name));
     let mut f = File::create(&rb_file)?;
     write!(f, "{}", generate_ruby_bindings(config, ci)?)?;
 

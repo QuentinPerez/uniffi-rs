@@ -9,10 +9,11 @@ use std::process::Command;
 
 pub mod gen_kotlin;
 pub use gen_kotlin::{generate_bindings, Config};
-mod test;
+
+// mod test;
+// pub use test::{run_script, run_test};
 
 use super::super::interface::ComponentInterface;
-pub use test::{run_script, run_test};
 
 pub fn write_bindings(
     config: &Config,

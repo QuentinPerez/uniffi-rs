@@ -18,5 +18,5 @@ uniffi = {path = "../../uniffi", version = "0.24", features = ["build"] }
 
 [dev-dependencies]
 uniffi = {path = "../../uniffi", version = "0.24", features = ["bindgen-tests", "cli"] }
-uniffi_testing = { path = "../../uniffi_testing" }
+# uniffi_testing = { path = "../../uniffi_testing" }
 anyhow = "1"

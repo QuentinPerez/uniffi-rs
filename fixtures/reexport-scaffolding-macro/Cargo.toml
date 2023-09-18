@@ -19,6 +19,6 @@ uniffi = { path = "../../uniffi", version = "0.24" }
 uniffi_bindgen = { path = "../../uniffi_bindgen" }
 
 [dev-dependencies]
-cargo_metadata = "0.15"
-libloading = "0.7"
+cargo_metadata = "0.18"
+libloading = "0.8"
 uniffi = { path = "../../uniffi", version = "0.24" }

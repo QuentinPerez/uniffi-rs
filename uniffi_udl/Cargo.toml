@@ -13,4 +13,4 @@ keywords = ["ffi", "bindgen"]
 anyhow = "1"
 weedle2 = { version = "4.0.0", path = "../weedle2" }
 uniffi_meta = { path = "../uniffi_meta", version = "=0.24.3" }
-uniffi_testing = { path = "../uniffi_testing", version = "=0.24.3" }
+# uniffi_testing = { path = "../uniffi_testing", version = "=0.24.3" }

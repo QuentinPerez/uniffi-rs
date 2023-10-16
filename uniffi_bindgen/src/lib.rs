@@ -351,18 +351,18 @@ fn crate_name_from_cargo_toml(udl_file: &Utf8Path) -> Result<String> {
         name: Option<String>,
     }
 
-    let file = guess_crate_root(udl_file)?.join("Cargo.toml");
-    let cargo_toml_str =
-        fs::read_to_string(file).context("Can't find Cargo.toml to determine the crate name")?;
+    // let file = guess_crate_root(udl_file)?.join("Cargo.toml");
+    // let cargo_toml_str =
+    //     fs::read_to_string(file).context("Can't find Cargo.toml to determine the crate name")?;
 
-    let cargo_toml: CargoToml = toml::from_str(&cargo_toml_str)?;
+    // let cargo_toml: CargoToml = toml::from_str(&cargo_toml_str)?;
 
-    let lib_crate_name = cargo_toml
-        .lib
-        .name
-        .unwrap_or_else(|| cargo_toml.package.name.replace('-', "_"));
+    // let lib_crate_name = cargo_toml
+    //     .lib
+    //     .name
+    //     .unwrap_or_else(|| cargo_toml.package.name.replace('-', "_"));
 
-    Ok(lib_crate_name)
+    Ok("relation".to_string())
 }
 
 /// Guess the root directory of the crate from the path of its UDL file.

@@ -60,6 +60,7 @@ pub fn generate_external_bindings<T: BindingGenerator>(
     crate_name: Option<String>,
     out_dir: &Utf8Path,
 ) -> Result<Vec<Source<T::Config>>> {
+    dbg!(std::env::current_dir());
     let cargo_metadata = MetadataCommand::new()
         .exec()
         .context("error running cargo metadata")?;

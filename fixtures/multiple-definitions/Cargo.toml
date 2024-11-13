@@ -1,0 +1,19 @@
+[package]
+name = "uniffi-fixture-multiple-definitions"
+version = "0.22.0"
+edition = "2018"
+license = "MPL-2.0"
+publish = false
+
+[lib]
+name = "uniffi_multiple_definitions"
+crate-type = ["lib", "cdylib"]
+
+[dependencies]
+uniffi = { workspace = true }
+bar = { path = "./bar"}
+foo = { path = "./foo"}
+
+[dev-dependencies]
+uniffi = { workspace = true, features = ["bindgen-tests"] }
+
